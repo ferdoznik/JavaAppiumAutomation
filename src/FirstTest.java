@@ -4,14 +4,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import javax.naming.ldap.ExtendedRequest;
 import java.net.URL;
 
 public class FirstTest {
@@ -38,13 +35,13 @@ public class FirstTest {
     @Test
     public void firstTest()
     {
-        waitForElementAndClick(
+        waitForElementByXpathAndClick(
                 "//*[contains(@text,'Search Wikipedia')]",
                 "Cannot find search Wikipedia input",
                 5
         );
-        waitForElementAndSendKeys(
-                "//*[contains(@text,'Search Wikipedia')]",
+        waitForElementByXpathAndSendKeys(
+                "//*[contains(@text,'Search…')]",
                 "Java",
                 "Cannot find search input",
                 5
@@ -69,13 +66,13 @@ public class FirstTest {
     {
         return waitForElementPresentByXpath(xpath, error_message,5);
     }
-    private WebElement waitForElementAndClick(String xpath, String error_message, long timeoutInSeconds)
+    private WebElement waitForElementByXpathAndClick(String xpath, String error_message, long timeoutInSeconds)
     {
         WebElement element = waitForElementPresentByXpath(xpath, error_message, timeoutInSeconds);
         element.click();
         return element;
     }
-    private WebElement waitForElementAndSendKeys(String xpath, String value, String error_message, long timeoutInSeconds)
+    private WebElement waitForElementByXpathAndSendKeys(String xpath, String value, String error_message, long timeoutInSeconds)
     {
         WebElement element = waitForElementPresentByXpath(xpath, error_message, timeoutInSeconds);
         element.sendKeys(value);
