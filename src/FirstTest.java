@@ -3,8 +3,15 @@ import io.appium.java_client.android.AndroidDriver;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import javax.naming.ldap.ExtendedRequest;
 import java.net.URL;
 
 public class FirstTest {
@@ -31,6 +38,61 @@ public class FirstTest {
     @Test
     public void firstTest()
     {
-        System.out.println("First test run");
+        waitForElementAndClick(
+                "//*[contains(@text,'Search Wikipedia')]",
+                "Cannot find search Wikipedia input",
+                5
+        );
+        waitForElementAndSendKeys(
+                "//*[contains(@text,'Search Wikipedia')]",
+                "Java",
+                "Cannot find search input",
+                5
+        );
+        waitForElementPresentByXpath(
+                "//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='Object-oriented programming language']",
+                "Cannot find topic searching by 'Java'",
+                15
+        );
+        WebElement element_to_init_search = driver.findElementByXPath( "//*[contains(@text,'Search Wikipedia')]");
+        element_to_init_search.click();
+
+        WebElement element_to_enter_search_line = waitForElementPresentByXpath(
+                "//*[contains(@text,'Search…')]",
+                "Cannot find search input"
+        );
+        //driver.findElementByXPath( "//*[contains(@text,'Search…')]");
+        element_to_enter_search_line.sendKeys("Java");
+        waitForElementPresentByXpath(
+                "//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='Object-oriented programming language']",
+                "Cannot find topic searching by 'Java'",
+                15
+        );
+    }
+    private WebElement waitForElementPresentByXpath(String xpath, String error_message, long timeOutSeconds)
+    {
+        WebDriverWait wait = new WebDriverWait(driver, timeOutSeconds);
+        wait.withMessage(error_message + "\n");
+        By by = By.xpath(xpath);
+        return wait.until(
+                ExpectedConditions.presenceOfElementLocated(by)
+        );
+
+    }
+    private WebElement waitForElementPresentByXpath(String xpath, String error_message)
+    {
+        return waitForElementPresentByXpath(xpath, error_message,5);
+    }
+    private WebElement waitForElementAndClick(String xpath, String error_message, long timeoutInSeconds)
+    {
+        WebElement element = waitForElementPresentByXpath(xpath, error_message, timeoutInSeconds);
+        element.click();
+        return element;
+    }
+    private WebElement waitForElementAndSendKeys(String xpath, String value, String error_message, long timeoutInSeconds)
+    {
+        WebElement element = waitForElementPresentByXpath(xpath, error_message, timeoutInSeconds);
+        element.sendKeys(value);
+        return element;
     }
 }
