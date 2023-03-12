@@ -54,20 +54,6 @@ public class FirstTest {
                 "Cannot find topic searching by 'Java'",
                 15
         );
-        WebElement element_to_init_search = driver.findElementByXPath( "//*[contains(@text,'Search Wikipedia')]");
-        element_to_init_search.click();
-
-        WebElement element_to_enter_search_line = waitForElementPresentByXpath(
-                "//*[contains(@text,'Search…')]",
-                "Cannot find search input"
-        );
-        //driver.findElementByXPath( "//*[contains(@text,'Search…')]");
-        element_to_enter_search_line.sendKeys("Java");
-        waitForElementPresentByXpath(
-                "//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='Object-oriented programming language']",
-                "Cannot find topic searching by 'Java'",
-                15
-        );
     }
     private WebElement waitForElementPresentByXpath(String xpath, String error_message, long timeOutSeconds)
     {
