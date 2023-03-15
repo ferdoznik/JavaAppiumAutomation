@@ -62,6 +62,17 @@ public class ThirdLesson_taskTwo {
                 "We got less than two results",
                 amount_of_search_results < 2
         );
+        waitForElementAndClick
+                (
+                By.id("org.wikipedia:id/search_close_btn"),
+                "Cannot find 'X' to cancel search",
+                5
+        );
+        waitForElementPresent(
+                By.xpath("//*[contains(@text,'Search…')]"),
+                "SearchBar is not cleared",
+                5
+        );
     }
     private WebElement waitForElementPresent(By by, String error_message, long timeOutSeconds)
     {
@@ -82,6 +93,14 @@ public class ThirdLesson_taskTwo {
         WebElement element = waitForElementPresent(by, error_message, timeoutInSeconds);
         element.sendKeys(value);
         return element;
+    }
+    private boolean waitForElementNotPresent(By by, String error_message, long timeoutInSeconds)
+    {
+        WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
+        wait.withMessage(error_message + "\n");
+        return wait.until(
+                ExpectedConditions.invisibilityOfElementLocated(by)
+        );
     }
     private int getAmountOfElements(By by)
     {
