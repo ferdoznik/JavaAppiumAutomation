@@ -11,8 +11,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.URL;
+import java.util.List;
 
-public class ThirdLesson {
+public class ThirdLesson_taskTwo {
     private AppiumDriver driver;
     @Before
     public void setUp() throws Exception
@@ -34,34 +35,32 @@ public class ThirdLesson {
         driver.quit();
     }
     @Test
-    public void assertElementHasText()
+    public void assertNumberOfArticles()
     {
         waitForElementAndClick(
                 By.xpath("//*[contains(@text,'Search Wikipedia')]"),
-                "Cannot find search Wikipedia input",
+                "Cannot find search 'Search Wikipedia' input",
                 5
         );
+        String search_line="Charlize Theron";
         waitForElementAndSendKeys(
                 By.xpath("//*[contains(@text,'Search…')]"),
-                "Charlize Theron",
+                search_line,
                 "Cannot find search input",
                 5
         );
-        waitForElementAndClick(
-                By.xpath("//*[contains(@text,'South African and American actress and producer (born 1975)')]"),
-                "Cannot find search Wikipedia input",
-                5
+        String search_result_locator = "//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='Charlize Theron']";
+        waitForElementPresent(
+                By.xpath(search_result_locator),
+                "Cannot find anything by the request",
+                10
         );
-        WebElement title_element = waitForElementPresent(
-                By.id("org.wikipedia:id/view_page_subtitle_text"),
-                "Cannot find article title",
-                15
+        int amount_of_search_results = getAmountOfElements(
+                By.xpath(search_result_locator)
         );
-        String article_title = title_element.getAttribute("text");
-        Assert.assertEquals(
-                "We see unexpected title",
-                "English actor and comedian (born 1957)",
-                article_title
+        Assert.assertTrue(
+                "We got less than two results",
+                amount_of_search_results < 2
         );
     }
     private WebElement waitForElementPresent(By by, String error_message, long timeOutSeconds)
@@ -83,5 +82,10 @@ public class ThirdLesson {
         WebElement element = waitForElementPresent(by, error_message, timeoutInSeconds);
         element.sendKeys(value);
         return element;
+    }
+    private int getAmountOfElements(By by)
+    {
+        List elements = driver.findElements(by);
+        return elements.size();
     }
 }
