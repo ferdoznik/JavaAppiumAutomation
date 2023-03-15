@@ -60,11 +60,11 @@ public class FirstTest {
                 "Cannot find 'Search Wiki' input",
                 5
         );
-//        waitForElementByIdAndClick(
-//                "org.wikipedia:id/search_close_btn",
-//                "Cannot find 'X' to cancel search",
-//                5
-//        );
+        waitForElementByIdAndClick(
+                "org.wikipedia:id/search_close_btn",
+                "Cannot find 'X' to cancel search",
+                5
+        );
         waitForElementNotPresent(
                 "org.wikipedia:id/search_close_btn",
                 "Cannot find 'X' to cancel search",
