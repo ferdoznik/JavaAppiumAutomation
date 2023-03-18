@@ -10,6 +10,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import javax.xml.bind.Element;
 import java.net.URL;
 
 public class ThirdLesson {
@@ -34,35 +35,35 @@ public class ThirdLesson {
         driver.quit();
     }
     @Test
-    public void assertElementHasText()
+    public void AssertElementHasText()
     {
         waitForElementAndClick(
                 By.xpath("//*[contains(@text,'Search Wikipedia')]"),
                 "Cannot find search Wikipedia input",
                 5
         );
-        waitForElementAndSendKeys(
-                By.xpath("//*[contains(@text,'Search…')]"),
-                "Charlize Theron",
-                "Cannot find search input",
+        assertElementHasText(
+                By.xpath("//*[contains(@text,value)]"),
+                "privet",
+                "w",
                 5
         );
-        waitForElementAndClick(
-                By.xpath("//*[contains(@text,'South African and American actress and producer (born 1975)')]"),
-                "Cannot find search Wikipedia input",
-                5
-        );
-        WebElement title_element = waitForElementPresent(
-                By.id("org.wikipedia:id/view_page_subtitle_text"),
-                "Cannot find article title",
-                15
-        );
-        String article_title = title_element.getAttribute("text");
-        Assert.assertEquals(
-                "We see unexpected title",
-                "English actor and comedian (born 1957)",
-                article_title
-        );
+//        waitForElementAndClick(
+//                By.xpath("//*[contains(@text,'South African and American actress and producer (born 1975)')]"),
+//                "Cannot find search Wikipedia input",
+//                5
+//        );
+//        WebElement title_element = waitForElementPresent(
+//                By.id("org.wikipedia:id/view_page_subtitle_text"),
+//                "Cannot find article title",
+//                15
+//        );
+//        String article_title = title_element.getAttribute("text");
+//        Assert.assertEquals(
+//                "We see unexpected title",
+//                "English actor and comedian (born 1957)",
+//                article_title
+//        );
     }
     private WebElement waitForElementPresent(By by, String error_message, long timeOutSeconds)
     {
@@ -78,10 +79,12 @@ public class ThirdLesson {
         element.click();
         return element;
     }
-    private WebElement waitForElementAndSendKeys(By by, String value, String error_message, long timeoutInSeconds)
+    private WebElement assertElementHasText(By by, String value, String error_message, long timeOutSeconds)
     {
-        WebElement element = waitForElementPresent(by, error_message, timeoutInSeconds);
-        element.sendKeys(value);
-        return element;
+        WebDriverWait wait = new WebDriverWait(driver, timeOutSeconds);
+        wait.withMessage(error_message + "\n");
+        return wait.until(
+                ExpectedConditions.textToBePresentInElementValue(waitForElementPresent)
+        );
     }
 }

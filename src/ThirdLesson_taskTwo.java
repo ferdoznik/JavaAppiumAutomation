@@ -94,14 +94,6 @@ public class ThirdLesson_taskTwo {
         element.sendKeys(value);
         return element;
     }
-    private boolean waitForElementNotPresent(By by, String error_message, long timeoutInSeconds)
-    {
-        WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
-        wait.withMessage(error_message + "\n");
-        return wait.until(
-                ExpectedConditions.invisibilityOfElementLocated(by)
-        );
-    }
     private int getAmountOfElements(By by)
     {
         List elements = driver.findElements(by);
