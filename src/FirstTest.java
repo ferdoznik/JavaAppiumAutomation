@@ -16,6 +16,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.URL;
 import java.time.Duration;
+import java.util.List;
 
 public class FirstTest {
     private AppiumDriver driver;
@@ -455,5 +456,10 @@ public class FirstTest {
                 .moveTo(PointOption.point(left_x, middle_y))
                 .release()
                 .perform();
+    }
+    private int getAmountOfElements(By by)
+    {
+        List elements = driver.findElements(by);
+        return elements.size();
     }
 }
