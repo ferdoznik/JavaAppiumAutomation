@@ -18,7 +18,7 @@ public class GetStartedTest extends iOSTestCase
         WelcomePage.clickNextButtonSecondTime();
 
         WelcomePage.waitForSearchInNearly300Languages();
-        WelcomePage.clickGetStarted();
+        WelcomePage.clickNextButtonThirdTime();
 
         WelcomePage.clickGetStarted();
     }
