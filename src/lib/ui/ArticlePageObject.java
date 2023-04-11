@@ -15,6 +15,10 @@ abstract public class ArticlePageObject extends MainPageObject
     MY_LIST_MAIN_INPUT,
     MY_LIST_OK_BUTTON,
     CLOSE_ARTICLE_BUTTON,
+    LEAVE_ARTICLE_BUTTON,
+    CANCEL_BUTTON,
+    CLOSE_BUTTON,
+    MY_SAVED_LIST,
     POPOVER;
     public ArticlePageObject(AppiumDriver driver)
     {
@@ -22,7 +26,7 @@ abstract public class ArticlePageObject extends MainPageObject
     }
     public WebElement waitForTitleElement()
     {
-        return this.waitForElementPresent(TITLE, "Cannot find article title on page", 10);
+        return this.waitForElementPresent(TITLE, "Cannot find article title on page", 3);
     }
     public String getArticleTitle()
     {
@@ -80,6 +84,12 @@ abstract public class ArticlePageObject extends MainPageObject
                 "Cannot press OK button",
                 5
                 );
+        this.waitForElementAndClick(
+                CLOSE_BUTTON,
+                "Cannot press X button",
+                5
+        );
+
     }
     public void closeArticle()
     {
@@ -105,5 +115,35 @@ abstract public class ArticlePageObject extends MainPageObject
     public void waitForPopoverToDisappear()
     {
         this.waitForElementNotPresent(POPOVER, "POPOVER still present", 5);
+    }
+    public void addArticlesToMySaved(String name_of_folder)
+    {
+        this.waitForElementAndClick(
+                OPTIONS_ADD_TO_MY_LIST_BUTTON,
+                "Cannot find Save for later button",
+                2);
+        this.waitForElementAndClick(
+                LEAVE_ARTICLE_BUTTON,
+                "Cannot find Back button",
+                2);
+        this.waitForElementAndClick(
+                CANCEL_BUTTON,
+                "Cannot find Back button",
+                2);
+        this.waitForElementAndClick(
+                MY_SAVED_LIST,
+                "Cannot find Save for later button",
+                2);
+        this.waitForElementAndClick(
+                CLOSE_BUTTON,
+                "Cannot find and press X button",
+                2);
+    }
+    public void clickBack()
+    {
+        this.waitForElementAndClick(
+                LEAVE_ARTICLE_BUTTON,
+                "Cannot find Save for later button",
+                5);
     }
 }

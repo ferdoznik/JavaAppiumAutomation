@@ -12,6 +12,7 @@ public class IOSSearchPageObject extends SearchPageObject
         SEARCH_CANCEL_BUTTON = "xpath://XCUIElementTypeStaticText[@name='Cancel']";
         SEARCH_RESULT_ELEMENT = "xpath://XCUIElementTypeStaticText";
         SEARCH_EMPTY_RESULT_ELEMENT = "id:No results found";
+        SEARCH_MY_SAVED_ARTICLE = "id:Java (programming language)";
     }
     public IOSSearchPageObject(AppiumDriver driver)
     {

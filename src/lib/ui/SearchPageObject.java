@@ -9,6 +9,7 @@ abstract public class SearchPageObject extends MainPageObject
     SEARCH_RESULT_BY_SUBSTRING_TPL,
     SEARCH_CANCEL_BUTTON,
     SEARCH_RESULT_ELEMENT,
+    SEARCH_MY_SAVED_ARTICLE,
     SEARCH_EMPTY_RESULT_ELEMENT;
     public SearchPageObject(AppiumDriver driver)
     {
@@ -23,7 +24,7 @@ abstract public class SearchPageObject extends MainPageObject
     public void initSearchInput()
     {
         this.waitForElementPresent(SEARCH_INIT_ELEMENT, "Cannot find search input after clicking search init element");
-        this.waitForElementAndClick(SEARCH_INIT_ELEMENT, "Cannot find and click search init element", 5);
+        this.waitForElementAndClick(SEARCH_INIT_ELEMENT, "Cannot find and click search init element", 2);
     }
     public void waitForCancelButtonToAppear()
     {
@@ -39,7 +40,7 @@ abstract public class SearchPageObject extends MainPageObject
     }
     public void typeSearchLine (String search_line)
     {
-        this.waitForElementAndSendKeys(SEARCH_INPUT,search_line,"Cannot find and type into search_input", 5);
+        this.waitForElementAndSendKeys(SEARCH_INPUT,search_line,"Cannot find and type into search_input", 2);
     }
     public void waitForSearchResult(String substring)
     {
@@ -49,7 +50,7 @@ abstract public class SearchPageObject extends MainPageObject
     public void clickByArticleWithSubstring(String substring)
     {
         String search_result_xpath = getResultSearchElement(substring);
-        this.waitForElementAndClick(search_result_xpath,"Cannot find and click search result with substring" + substring, 10);
+        this.waitForElementAndClick(search_result_xpath,"Cannot find and click search result with substring" + substring, 5);
     }
     public int getAmountOfFoundArticles()
     {
@@ -76,5 +77,12 @@ abstract public class SearchPageObject extends MainPageObject
     public void assertThereIsResultsOfSearch()
     {
         this.assertElementNotPresent(SEARCH_RESULT_ELEMENT, "We were supposed to find some results");
+    }
+    public void checkIfArticleIsDeleted()
+    {
+        this.assertElementNotPresent(
+                SEARCH_MY_SAVED_ARTICLE,
+                "Article is still there"
+        );
     }
 }

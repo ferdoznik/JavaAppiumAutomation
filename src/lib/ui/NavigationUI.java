@@ -3,10 +3,12 @@ package lib.ui;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 
-public class NavigationUI extends MainPageObject{
+abstract public class NavigationUI extends MainPageObject{
 
-    private static final String
-        MY_LISTS_LINK = "xpath://android.widget.FrameLayout[@content-desc='My lists']";
+    protected static String
+            MY_LISTS_LINK,
+            SAVE_FOR_LATER;
+
 
     public NavigationUI(AppiumDriver driver)
     {
@@ -21,4 +23,13 @@ public class NavigationUI extends MainPageObject{
                 5
         );
     }
+    public void clickSaveForLater()
+    {
+        this.waitForElementAndClick(
+                SAVE_FOR_LATER,
+                "Cannot click Save for later",
+                5
+        );
+    }
+
 }
