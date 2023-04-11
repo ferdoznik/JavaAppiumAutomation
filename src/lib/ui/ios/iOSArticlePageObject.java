@@ -15,6 +15,7 @@ public class iOSArticlePageObject extends ArticlePageObject
         CANCEL_BUTTON = "xpath://XCUIElementTypeStaticText[@name='Cancel']";
         CLOSE_BUTTON = "id:Close";
         MY_SAVED_LIST = "id:Saved";
+        CLEAR_TEXT_BUTTON = "id:Clear text";
     }
 
     public iOSArticlePageObject(AppiumDriver driver)

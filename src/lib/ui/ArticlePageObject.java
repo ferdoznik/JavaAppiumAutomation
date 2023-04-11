@@ -19,6 +19,7 @@ abstract public class ArticlePageObject extends MainPageObject
     CANCEL_BUTTON,
     CLOSE_BUTTON,
     MY_SAVED_LIST,
+    CLEAR_TEXT_BUTTON,
     POPOVER;
     public ArticlePageObject(AppiumDriver driver)
     {
@@ -116,7 +117,7 @@ abstract public class ArticlePageObject extends MainPageObject
     {
         this.waitForElementNotPresent(POPOVER, "POPOVER still present", 5);
     }
-    public void addArticlesToMySaved(String name_of_folder)
+    public void addArticlesToMySaved()
     {
         this.waitForElementAndClick(
                 OPTIONS_ADD_TO_MY_LIST_BUTTON,
@@ -128,7 +129,7 @@ abstract public class ArticlePageObject extends MainPageObject
                 2);
         this.waitForElementAndClick(
                 CANCEL_BUTTON,
-                "Cannot find Back button",
+                "Cannot find Cancel button",
                 2);
         this.waitForElementAndClick(
                 MY_SAVED_LIST,
@@ -139,11 +140,34 @@ abstract public class ArticlePageObject extends MainPageObject
                 "Cannot find and press X button",
                 2);
     }
-    public void clickBack()
+    public void addToMySavedAndClearInput(String name_of_folder)
     {
         this.waitForElementAndClick(
-                LEAVE_ARTICLE_BUTTON,
+                OPTIONS_ADD_TO_MY_LIST_BUTTON,
                 "Cannot find Save for later button",
-                5);
+                2);
+        this.waitForElementAndClick(
+                LEAVE_ARTICLE_BUTTON,
+                "Cannot find Back button",
+                2);
+        this.waitForElementAndClick(
+                CLEAR_TEXT_BUTTON,
+                "Cannot find Clear button",
+                2);
+    }
+    public void addToMySavedAndCancel(String name_of_folder)
+    {
+        this.waitForElementAndClick(
+                OPTIONS_ADD_TO_MY_LIST_BUTTON,
+                "Cannot find Save for later button",
+                2);
+        this.waitForElementAndClick(
+                LEAVE_ARTICLE_BUTTON,
+                "Cannot find Back button",
+                2);
+        this.waitForElementAndClick(
+                CANCEL_BUTTON,
+                "Cannot find Clear button",
+                2);
     }
 }

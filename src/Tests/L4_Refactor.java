@@ -12,17 +12,17 @@ import lib.ui.factories.NavigationUIFactory;
 import lib.ui.factories.SearchPageObjectFactory;
 import org.junit.Test;
 
-public class MyListTests extends CoreTestCase
+public class L4_Refactor extends CoreTestCase
 {
-    private static final String name_of_folder = "Java (programming language)";
+    private static final String name_of_folder = "Video game series and multimedia franchise";
     @Test
     public void testSaveFirstArticleToMyList()
     {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
         SearchPageObject.initSearchInput();
-        SearchPageObject.typeSearchLine("Java");
-        SearchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
+        SearchPageObject.typeSearchLine("Mortal Kombat");
+        SearchPageObject.clickByArticleWithSubstring("Video game series and multimedia franchise");
 
         ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
         ArticlePageObject.waitForTitleElement();
@@ -31,12 +31,24 @@ public class MyListTests extends CoreTestCase
         if (Platform.getInstance().isAndroid()){
             ArticlePageObject.addArticleToMyList(name_of_folder);
         }else {
-            ArticlePageObject.addArticlesToMySaved();
+            ArticlePageObject.addToMySavedAndClearInput(name_of_folder);
         }
 //        ArticlePageObject.closeArticle();
 
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("Tekken");
+        SearchPageObject.clickByArticleWithSubstring("Fighting video game series");
+
+        ArticlePageObject.waitForTitleElement();
+
+        if (Platform.getInstance().isAndroid()){
+            ArticlePageObject.addArticleToMyList(name_of_folder);
+        }else {
+            ArticlePageObject.addToMySavedAndCancel(name_of_folder);
+        }
+
         NavigationUI NavigationUI = NavigationUIFactory.get(driver);
-        NavigationUI.clickMyLists();
+        NavigationUI.clickSavedAndClose();
 
         MyListsPageObject MyListsPageObject = MyListsPageObjectFactory.get(driver);
 
@@ -46,6 +58,7 @@ public class MyListTests extends CoreTestCase
 //        MyListsPageObject.swipeByArticleToDelete(article_title);
         MyListsPageObject.holdArticleToDelete(article_title);
         MyListsPageObject.deleteSavedArticle();
+        MyListsPageObject.holdArticleToDelete(article_title);
         SearchPageObject.checkIfArticleIsDeleted();
     }
 }

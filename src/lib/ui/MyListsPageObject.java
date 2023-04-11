@@ -38,7 +38,7 @@ abstract public class MyListsPageObject extends MainPageObject{
         this.waitForElementPresent(
                 article_xpath,
                 "Cannot find saved article by title" + article_title,
-                3
+                10
         );
     }
     public void waitForArticleToDisappearByTitle(String article_title)
@@ -70,7 +70,7 @@ abstract public class MyListsPageObject extends MainPageObject{
         String article_xpath = getSavedArticleXpathByTitle(article_title);
         this.tapElementAndHold(article_xpath,
                 "Cannot see the article",
-                4000);
+                6000);
     }
     public void deleteSavedArticle()
     {

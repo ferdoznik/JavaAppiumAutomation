@@ -7,6 +7,7 @@ abstract public class NavigationUI extends MainPageObject{
 
     protected static String
             MY_LISTS_LINK,
+            CLOSE_BUTTON,
             SAVE_FOR_LATER;
 
 
@@ -20,16 +21,19 @@ abstract public class NavigationUI extends MainPageObject{
         this.waitForElementAndClick(
                 MY_LISTS_LINK,
                 "Cannot find My lists",
-                5
-        );
+                5);
     }
-    public void clickSaveForLater()
+    public void clickSavedAndClose()
     {
         this.waitForElementAndClick(
-                SAVE_FOR_LATER,
+                MY_LISTS_LINK,
                 "Cannot click Save for later",
                 5
         );
+        this.waitForElementAndClick(
+                CLOSE_BUTTON,
+                "Cannot find and press X button",
+                2);
     }
 
 }
