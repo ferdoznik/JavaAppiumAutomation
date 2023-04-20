@@ -48,7 +48,7 @@ public class PlatformRIES {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("platformName", "Android");
         capabilities.setCapability("deviceName", "AndroidTestDevice");
-        capabilities.setCapability("platformName", "12.0");
+        capabilities.setCapability("platformName", "13.0");
         capabilities.setCapability("automationName", "Appium");
         capabilities.setCapability("appPackage", "com.riesapp");
         capabilities.setCapability("appActivity", ".features.root.RootActivity");

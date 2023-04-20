@@ -4,23 +4,23 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
+import lib.Platform;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import lib.Platform;
 
 import java.time.Duration;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class MainPageObject {
+public class RIESMainPageObject {
 
     protected AppiumDriver driver;
 
-    public MainPageObject(AppiumDriver driver) {
+    public RIESMainPageObject(AppiumDriver driver) {
         this.driver = driver;
     }
 
@@ -155,7 +155,7 @@ public class MainPageObject {
 
     public void assertElementIsPresent(String locator, String error_message) {
         int amount_of_elements = getAmountOfElements(locator);
-        if (amount_of_elements < 1) {
+        if (amount_of_elements >= 1) {
             String default_message = "An element '" + locator + "' is not there";
             throw new AssertionError(default_message + "" + error_message);
         }
